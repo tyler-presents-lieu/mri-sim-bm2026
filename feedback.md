@@ -45,3 +45,15 @@
 * slide 5 definitely needs the filled area representation of field strength 
 # round 11
 * on slide 3 the phases seem pretty random and don't seem to remain consistent when the applied gradient is 0
+* the rf pulse visulaization on slide 3 is a noisy mess, not showing smooth curves
+* combined signal plot should be filled area chart with the filled area close to solid color
+# round 12
+* I'm still not delighted with use of screen real estate. Can we get the the heading and text to display next to the slide. Let's also ditch the "mri made visible"
+* slide 3 appears to simulate spatial sensitivity/selectivity when the gradient is 0, this is physically inaccurate. When there's no gradiant, the rf pulse should impact all atoms uniformly
+* let's expand the time range a bit on the signal visuzalization on slide 7. Let's also give it a fixed vertical scale. Give it a some more height. It'd be find to shrink the atom grids a little to make room for this.
+# round 13 
+* the larger signal strenth curves look good. We still seem to be autoscaling the vertical axis, which is a distracting. These need a FIXED VERTICAL SCALE!!!
+* slide 3 still shows spatial selectivity when gradient is 0. This is physically wrong. Spatial selectivity comes from different atoms having different natural frequencies and matching or not matching the rf pulse frequency. This ruins the slide and needs to be fixed!
+# round 14
+* the rf pulse on slide 3 is nice, let's add that to subsequent slides
+* the 

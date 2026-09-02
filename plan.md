@@ -29,3 +29,19 @@ Then we'll show equal x and y gradients control in 2d
 - [complete] Add a presenter-triggered RF pulse command to slide 3.
 - [complete] Replace embedded field bars with a third, dedicated field/frequency plot on slides 3 and 5.
 - [complete] Add a directional vector for the adjustable 2D gradient on slide 6.
+
+# Current Iteration: Coherent Position-Selection Signals
+
+- [complete] Make slide 3 phases share one initial phase and vary only with the adjustable gradient.
+- [complete] Simplify the slide 3 RF 
+pulse trace into a clean, readable waveform.
+- [complete] Render combined signal history as a mostly solid filled-area chart.
+
+# Current Iteration: Expanded Signal Bridge
+
+- [complete] Give slide 7 a longer signal history and a taller fixed vertical amplitude scale.
+- [complete] Compress slide 7's atom grids to make room for the expanded signal chart.
+
+# Current Iteration: Physically Correct Spatial Selectivity
+
+- [complete] Tie slide 3 atom resonance to the active gradient so zero gradient excites all positions equally.

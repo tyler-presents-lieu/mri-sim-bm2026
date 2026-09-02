@@ -41,7 +41,7 @@ let gridSize = 10;
 let xGradient = 1 / 6;
 let yGradient = 0;
 let simulationTime = 0;
-const signalSamples = Array(96).fill(0);
+const signalSamples = Array(192).fill(0);
 let lastSignalSampleTime = 0;
 let previousTimestamp = performance.now();
 
@@ -265,7 +265,7 @@ function drawFieldPlot(centerX, centerY, panelWidth, gradientX) {
   context.fillText("POSITION", centerX - 24, baselineY + 34);
 }
 
-function drawLinePanel(centerX, centerY, panelWidth, panelView) {
+function drawLinePanel(centerX, centerY, panelWidth, panelView, gradient = 0) {
   const positions = [-1, -0.78, -0.56, -0.34, -0.12, 0.12, 0.34, 0.56, 0.78, 1];
   const isPhase = panelView === "phase";
   const lineWidth = panelWidth * 0.76;
@@ -278,12 +278,12 @@ function drawLinePanel(centerX, centerY, panelWidth, panelView) {
   context.stroke();
 
   positions.forEach((position) => {
-    const frequency = spinFrequency(position);
+    const frequency = 0.1 + gradient * position;
     const detuning = Math.abs(frequency - rfFrequency);
     const excitation = pulseStrength * Math.exp(-Math.pow(detuning / 0.011, 2));
     const selected = excitation > 0.48;
     const x = centerX + position * lineWidth / 2;
-    const phaseOffset = phase * frequency * 4;
+    const phaseOffset = phase + simulationTime * Math.PI * 2 * gradient * position;
     const arrowLength = 13 + excitation * 28;
     const arrowColor = selected ? "#ef6b5c" : "#61d8ac";
     if (isPhase) {
@@ -305,10 +305,10 @@ function drawLinePanel(centerX, centerY, panelWidth, panelView) {
   context.fillText(label, centerX - context.measureText(label).width / 2, centerY - 122);
 }
 
-function drawGridPanel(centerX, centerY, panelWidth, panelView, gradientX = 0, gradientY = 0) {
+function drawGridPanel(centerX, centerY, panelWidth, panelView, gradientX = 0, gradientY = 0, extentScale = 1) {
   const isIsometric = panelView === "isometric";
   const isPhase = panelView === "phase";
-  const gridExtent = Math.min(panelWidth * 0.34, 128);
+  const gridExtent = Math.min(panelWidth * 0.34, 128) * extentScale;
   const spacing = (gridExtent * 2) / Math.max(gridSize - 1, 1);
   const dotRadius = Math.max(2.5, Math.min(6, spacing * 0.22));
   const radiusY = isIsometric ? gridExtent * 0.5 : gridExtent * 0.78;
@@ -401,7 +401,8 @@ function sampleSignal(signalStrength) {
 function drawSignalStrip(width, height, signalStrength, showRf = false) {
   const left = 28;
   const right = width - 28;
-  const signalY = height - 38;
+  const signalY = height - 34;
+  const signalScale = 78;
   const widthAvailable = right - left;
 
   context.fillStyle = "#c9d1c7";
@@ -418,19 +419,31 @@ function drawSignalStrip(width, height, signalStrength, showRf = false) {
     for (let index = 0; index <= 120; index += 1) {
       const x = left + (index / 120) * widthAvailable;
       const envelope = pulseStrength > 0.02 ? Math.sin((index / 120) * Math.PI) : 0.16;
-      const y = rfY - Math.sin(index * (4 + normalizedFrequency * 12)) * envelope * 18;
+      const y = rfY - Math.sin(index / 120 * Math.PI * (2.5 + normalizedFrequency * 1.5)) * envelope * 18;
       if (index === 0) context.moveTo(x, y);
       else context.lineTo(x, y);
     }
     context.stroke();
   }
 
-  context.strokeStyle = "#61d8ac";
+  context.fillStyle = "rgba(97, 216, 172, 0.9)";
+  context.beginPath();
+  context.moveTo(left, signalY);
+  signalSamples.forEach((sample, index) => {
+    const x = left + (index / (signalSamples.length - 1)) * widthAvailable;
+    const y = signalY - sample * signalScale;
+    if (index === 0) context.moveTo(x, y);
+    else context.lineTo(x, y);
+  });
+  context.lineTo(right, signalY);
+  context.closePath();
+  context.fill();
+  context.strokeStyle = "#b7f1d7";
   context.lineWidth = 2;
   context.beginPath();
   signalSamples.forEach((sample, index) => {
     const x = left + (index / (signalSamples.length - 1)) * widthAvailable;
-    const y = signalY - sample * 25;
+    const y = signalY - sample * signalScale;
     if (index === 0) context.moveTo(x, y);
     else context.lineTo(x, y);
   });
@@ -447,13 +460,13 @@ function draw() {
   const { width, height } = canvas.getBoundingClientRect();
   const panelWidth = width / 3;
   const radius = Math.min(panelWidth * 0.32, 130);
-  const centerY = height * 0.52;
   const isResonance = scene === 1;
   const isLineSelectivity = scene === 2;
   const isUniformGrid = scene === 3;
   const isDephasing = scene === 4;
   const isXYGradients = scene === 5;
   const isSignalBridge = scene === 6;
+  const centerY = isSignalBridge ? height * 0.37 : height * 0.52;
   const targetFlip = isResonance ? pulseStrength * Math.PI / 2 : 0;
   flip += (targetFlip - flip) * 0.12;
   const transverseScale = isResonance ? Math.sin(flip) : 1 - alignment;
@@ -483,8 +496,8 @@ function draw() {
 
   let signalAmplitude = 0;
   if (isLineSelectivity) {
-    drawLinePanel(panelWidth * 0.5, centerY, panelWidth, "top");
-    drawLinePanel(panelWidth * 1.5, centerY, panelWidth, "phase");
+    drawLinePanel(panelWidth * 0.5, centerY, panelWidth, "top", xGradient);
+    drawLinePanel(panelWidth * 1.5, centerY, panelWidth, "phase", xGradient);
     drawFieldPlot(panelWidth * 2.5, centerY, panelWidth, xGradient);
     signalAmplitude = pulseStrength;
   } else if (isUniformGrid || isDephasing || isXYGradients || isSignalBridge) {
@@ -496,8 +509,8 @@ function draw() {
       drawFieldPlot(panelWidth * 2.5, centerY, panelWidth, gradientX);
     } else {
       const twoPanelWidth = width / 2;
-      drawGridPanel(twoPanelWidth * 0.5, centerY, twoPanelWidth, "top", gradientX, gradientY);
-      drawGridPanel(twoPanelWidth * 1.5, centerY, twoPanelWidth, "phase", gradientX, gradientY);
+      drawGridPanel(twoPanelWidth * 0.5, centerY, twoPanelWidth, "top", gradientX, gradientY, isSignalBridge ? 0.8 : 1);
+      drawGridPanel(twoPanelWidth * 1.5, centerY, twoPanelWidth, "phase", gradientX, gradientY, isSignalBridge ? 0.8 : 1);
       if (isXYGradients) drawGradientVector(width / 2, 76, gradientX, gradientY);
     }
     signalAmplitude = combinedGridSignal(gradientX, gradientY);
