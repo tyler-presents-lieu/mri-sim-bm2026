@@ -1,5 +1,16 @@
 # Offline Deployment Plan (Tier 2)
 
+## Current status
+
+`offline-demo/app` now contains a working, static copy of the demo
+(`web/index.html` + `web/static/`). The demo is a self-contained canvas
+animation with no server-side API calls, external fonts, or CDN
+dependencies, so `offline-demo/start.sh` / `start.bat` can serve it with
+nothing more than Python's built-in `http.server` — no `pip install` of
+FastAPI/Uvicorn is required on the presentation machine. If `web/` changes,
+run `./offline-demo/sync-app.sh` from the repo root to refresh `app/`, then
+redo the validation checklist below.
+
 ## Objective
 
 Build a **Tier 2 offline runnable demo package** for `mri-sim-bm2026` so the
