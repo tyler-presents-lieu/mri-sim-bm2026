@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MRI: One Spin</title>
+    <link rel="stylesheet" href="/static/theme.css?v=20260902-3" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <p class="eyebrow">MRI, made visible</p>
+        <label class="scene-picker" for="scene-select">
+          <span>Slide</span>
+          <select id="scene-select" aria-label="Jump to slide">
+            <option value="0">01 / 07 - Alignment</option>
+            <option value="1">02 / 07 - Resonance</option>
+            <option value="2">03 / 07 - Position selection</option>
+            <option value="3">04 / 07 - Uniform grid</option>
+            <option value="4">05 / 07 - X-gradient dephasing</option>
+            <option value="5">06 / 07 - XY gradients</option>
+            <option value="6">07 / 07 - Signal bridge</option>
+          </select>
+        </label>
+        <h1 id="scene-title">One hydrogen spin</h1>
+        <p class="subtitle" id="scene-subtitle">A magnetic field gives the spin a preferred direction.</p>
+      </header>
+
+      <section class="simulation" aria-label="Animated spin visualization">
+        <canvas id="spin-canvas" aria-label="An animated hydrogen spin"></canvas>
+        <div class="status-line">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="field-status">Field off</span>
+          <span class="divider" aria-hidden="true"></span>
+          <span>0.10 Hz</span>
+        </div>
+      </section>
+
+      <section class="control-strip" aria-label="Simulation controls">
+        <button id="previous-scene" class="nav-button" type="button" aria-label="Previous slide" title="Previous slide">&lt;</button>
+        <button id="next-scene" class="nav-button" type="button" aria-label="Next slide" title="Next slide">&gt;</button>
+        <button id="pause-button" class="icon-button" type="button" aria-label="Pause animation" title="Pause animation">II</button>
+        <button id="reset-button" class="nav-button" type="button" aria-label="Reset slide" title="Reset slide">&#8635;</button>
+        <button id="field-button" class="field-button" type="button">APPLY FIELD</button>
+        <button id="pulse-button" class="field-button is-hidden" type="button">APPLY RF PULSE</button>
+        <label id="rf-control-group" class="is-hidden" for="rf-control">RF frequency <output id="rf-value">0.10 Hz</output></label>
+        <input id="rf-control" class="is-hidden" type="range" min="0.04" max="0.16" value="0.10" step="0.01" />
+        <label id="grid-control-group" class="is-hidden" for="grid-control">Grid <output id="grid-value">10 x 10</output></label>
+        <input id="grid-control" class="is-hidden" type="range" min="1" max="20" value="10" step="1" />
+        <label id="gradient-control-group" class="is-hidden" for="gradient-control">X gradient <output id="gradient-value">0.17 Hz/unit</output></label>
+        <input id="gradient-control" class="is-hidden" type="range" min="-0.5" max="0.5" value="0.1667" step="0.01" />
+        <label id="y-gradient-control-group" class="is-hidden" for="y-gradient-control">Y gradient <output id="y-gradient-value">0.00 Hz/unit</output></label>
+        <input id="y-gradient-control" class="is-hidden" type="range" min="-0.5" max="0.5" value="0" step="0.01" />
+        <label id="phase-brightness-group" class="phase-brightness" for="phase-brightness-control">Phase brightness <output id="phase-brightness-value">100%</output>
+          <input id="phase-brightness-control" type="range" min="0.5" max="1.8" value="1" step="0.1" />
+        </label>
+        <label for="speed-control">Speed <output id="speed-value">1.0x</output></label>
+        <input id="speed-control" type="range" min="0.25" max="4" value="1" step="0.25" />
+      </section>
+    </main>
+    <script src="/static/main.js?v=20260902-5"></script>
+  </body>
+</html>

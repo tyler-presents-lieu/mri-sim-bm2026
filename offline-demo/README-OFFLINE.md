@@ -10,6 +10,10 @@ system to launch it on presentation day.
 - Python 3 installed on the machine you're demoing on (most macOS/Linux
   machines have it; on Windows you may need to install it from
   python.org — check this **before** presentation day).
+  Nothing else needs to be installed: `app/` is a static copy of the
+  demo (HTML/CSS/JS only, no external fonts, images, or API calls), so
+  it only needs Python's built-in `http.server` module, not FastAPI,
+  Uvicorn, or any `pip install` step.
 
 ## Running on macOS / Linux
 
@@ -91,3 +95,16 @@ static site, you can often skip the local server entirely:
 3. This may not support every feature (some browsers block certain requests
    from `file://` pages), but it is a reasonable last-resort fallback to
    keep the demo visually working.
+
+## Keeping this package in sync with the main app
+
+`app/` is a snapshot of the live demo in `web/` (`web/index.html` and
+`web/static/`). If that source changes, regenerate this folder before your
+next presentation by running, from the repository root:
+
+```bash
+./offline-demo/sync-app.sh
+```
+
+Then re-run the offline smoke test in `OFFLINE_PLAN.md` before your next
+presentation.
