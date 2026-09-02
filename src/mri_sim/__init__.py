@@ -1,0 +1,1 @@
+"""Interactive MRI teaching simulator."""
