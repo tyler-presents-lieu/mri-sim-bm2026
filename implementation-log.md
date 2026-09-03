@@ -45,3 +45,28 @@
 - Automated browser and model tests are still not present in this repository; manual browser rehearsal remains next.
 - The active server returns the new slide 5 markup and `/api/health` returns `{"status":"ok"}`.
 - The active server serves the slide 6/7 selectors and signal-bridge renderer markers.
+
+## 2026-09-03 Round 20 Signal Plot
+
+- Reworked the receive trace as a signed real transverse projection normalized by the full configured grid size.
+- Replaced zero-padded signal history with an empty ring buffer and a single zero fallback before the first sample.
+- Fixed the chart to a constant -1.00 to 1.00 range with explicit positive, zero, and negative guides.
+- Made the filled area close to the zero baseline and increased the signal line brightness and weight.
+- Made the RF pulse button available on the later grid scenes.
+- Confirmed centered gradient frequencies remain symmetric around 0.10 Hz.
+
+## 2026-09-03 Round 21 Signal Trace
+
+- Removed the signal plot's filled area, leaving a bright solid line against the fixed signed axis.
+- Tripled the retained signal history from 192 to 576 samples for a longer presentation window.
+
+## 2026-09-03 Round 23 Velocimetry
+
+- Added a tenth presentation slide for MRI velocimetry with stationary and moving atom modes.
+- Added a programmed six-second sequence: positive x gradient for three seconds, followed by a reversed gradient for three seconds.
+- Visualized the atom position, accumulated phase vector, gradient reversal timeline, and phase cancellation contrast.
+
+## 2026-09-03 Round 24 Velocimetry Scrubber
+
+- Added a six-second native range slider to scrub the velocimetry sequence interactively.
+- Scrubbing pauses playback and updates the atom position, gradient phase, timeline marker, and time readout together.

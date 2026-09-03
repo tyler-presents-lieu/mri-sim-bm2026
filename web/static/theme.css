@@ -15,10 +15,16 @@ body {
 button, input { font: inherit; }
 
 .app-shell { width: min(1100px, 100%); min-height: 100vh; margin: auto; padding: 24px 32px 20px; }
-.topbar { max-width: none; }
-.eyebrow { margin: 0 0 5px; color: #f2b950; font-family: "Trebuchet MS", sans-serif; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.topbar { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: center; column-gap: 20px; max-width: none; margin-bottom: 12px; }
 h1 { margin: 0; font-size: clamp(1rem, 1.35vw, 1.2rem); font-weight: 400; letter-spacing: 0; }
-.subtitle { margin: 4px 0 14px; color: #c9d1c7; font-size: 0.92rem; line-height: 1.35; }
+.scene-copy { min-width: 0; }
+.subtitle { margin: 3px 0 0; color: #c9d1c7; font-size: 0.92rem; line-height: 1.35; }
+.intro-slide { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr); gap: 34px; align-items: center; min-height: 440px; border-top: 1px solid #49636a; border-bottom: 1px solid #49636a; }
+.intro-slide img { display: block; width: 100%; height: 440px; object-fit: cover; }
+.intro-copy { padding: 24px 24px 24px 0; }
+.intro-copy ul { margin: 0; padding-left: 1.2em; color: #f4f1e7; font-size: clamp(1rem, 1.8vw, 1.35rem); line-height: 1.55; }
+.image-credit { margin: 28px 0 0; color: #c9d1c7; font-family: "Trebuchet MS", sans-serif; font-size: 0.72rem; line-height: 1.45; }
+.image-credit a { color: #61d8ac; }
 
 .simulation { position: relative; min-height: 440px; border-top: 1px solid #49636a; border-bottom: 1px solid #49636a; }
 #spin-canvas { display: block; width: 100%; height: 440px; }
@@ -31,8 +37,11 @@ h1 { margin: 0; font-size: clamp(1rem, 1.35vw, 1.2rem); font-weight: 400; letter
 .nav-button { width: 38px; height: 38px; border: 1px solid #49636a; border-radius: 4px; color: #f4f1e7; background: transparent; cursor: pointer; font-size: 1rem; }
 .nav-button:hover, .nav-button:focus-visible { border-color: #61d8ac; color: #61d8ac; }
 .field-button { height: 38px; border: 1px solid #61d8ac; border-radius: 4px; padding: 0 14px; color: #12222a; background: #61d8ac; cursor: pointer; font-size: 0.72rem; font-weight: 700; }
+.pattern-controls { display: flex; gap: 4px; }
+.pattern-button { height: 30px; border: 1px solid #49636a; border-radius: 3px; padding: 0 8px; color: #c9d1c7; background: transparent; cursor: pointer; font-family: "Trebuchet MS", sans-serif; font-size: 0.62rem; }
+.pattern-button:hover, .pattern-button:focus-visible, .pattern-button.is-selected { border-color: #f2b950; color: #f2b950; }
 .is-hidden { display: none; }
-.scene-picker { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #61d8ac; font-family: "Trebuchet MS", sans-serif; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.scene-picker { display: flex; align-items: center; gap: 8px; margin: 0; color: #61d8ac; font-family: "Trebuchet MS", sans-serif; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; }
 .scene-picker select { border: 1px solid #49636a; border-radius: 3px; padding: 4px 8px; color: #f4f1e7; background: #12222a; font-size: 0.78rem; }
 .control-strip label { font-size: 0.88rem; }
 .phase-brightness { position: relative; width: 22px; overflow: hidden; white-space: nowrap; color: #c9d1c7; cursor: pointer; transition: width 160ms ease; }
@@ -47,6 +56,10 @@ input[type="range"] { width: min(260px, 42vw); accent-color: #61d8ac; }
 
 @media (max-width: 640px) {
   .app-shell { padding: 18px 18px 16px; }
+  .topbar { grid-template-columns: 1fr; row-gap: 8px; }
+  .intro-slide { grid-template-columns: 1fr; gap: 18px; }
+  .intro-slide img { height: 240px; }
+  .intro-copy { padding: 0 18px 18px; }
   .simulation, #spin-canvas { min-height: 360px; height: 360px; }
   .subtitle { font-size: 0.88rem; }
 }

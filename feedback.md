@@ -56,4 +56,45 @@
 * slide 3 still shows spatial selectivity when gradient is 0. This is physically wrong. Spatial selectivity comes from different atoms having different natural frequencies and matching or not matching the rf pulse frequency. This ruins the slide and needs to be fixed!
 # round 14
 * the rf pulse on slide 3 is nice, let's add that to subsequent slides
-* the 
+* the vertical scale for the signal is still autoscaling, instead of being fixed. this is distracting AF and bad for the presentation
+* I'd like to add slide 8, which will be heavily based on slide 7. The key difference is that we'll a handful atom grids with patterns of missing atoms, to demonstrate how the developing phase shifts will cause signal spikes. This is essentially a jank intro to fourier series/transforms. So a battern of vertical bands, would be interesting, maybe some diagonal bands.
+# round 15
+* slide 8 needs some work. Trying to show the multiple patterns at once isn't working at all. let's add some small buttons to call up the different patterns, so that we can focus on them one at a time.
+* review how round 15 actually works. We definitely want the signal to respond accurately to the pattern of atoms.
+# round 16
+* slide 8 doesn't make a lot of sense unless I can apply gradients to cause phase shifts. plz add
+* the signal plot on slide 8 is wonky. After filling for the first time, the plot kinda breaks and doesn't display accurate data
+# round 17
+* "mri, made visible" should be removed
+* the heading and text should be to the right of the slide select, not below them. We want to maximize screen real estate available to the visulaizations. If it comes to it'll delete the fucking heading and text from the presentation if we can't get them to behave as required
+* given that we're not handing IQ signals, let's keep the patterns on slide 8 symmetric around the center.
+# round 18
+* "vertical bands" on slide 8 is now just a solid grid, with no missing atoms
+* still don't have the ability to apply gradients on slide 8
+# round 19
+* the signal strength graph is still autoscaling. normalize by the number of atoms on the grid! We can't have this jumping around. THIS IS A HUGE FUCKING PROBLEM!!!
+* need rf pulse button all the later slides !!!
+* the heading and text are still below the slide select, wasting space like crazy.  FIX THIS OR GET RID OF THIS SHITTY TEXT
+* vertical bands pattern is still a solid block, not vertical bands!!!
+# round 20
+* the signal filled area plot is still lousy. Scale should be normalized by number of atoms and go from -1 to 1 and the filled area should be from signal value to 0. It's also giving obviously wrong results for 0 gradient conditions after filling the plot for the first time. Instead of the constant signal, it's 0 at the left and. Generally, this plot is a mess. rethink strategy
+* rf pulse button still missing from slide 4 onward!
+* gradients should be applied to grids s.t. the gradient crosses 0 at the center of the grid
+# round 21
+* the signal plot is a lot better. The filled area part is still jacked up. Ditch it and just have the line
+* let's increase the time range of the signal plot. make it 3 x current value
+# round 22
+Let's add an introductory slide at the start.
+Use this image on the left https://www.medicalgraphics.de/en/product/mri-scanner/ (cite correctly)
+Here are my bullet points (don't generate content/text here)
+
+* Originally chemcial composition measurement (NMR), turned into imaging
+* See inside the body without ionizing radiation
+* Many imaging modalities from one piece of hardware, via software
+* Natural conneciton to signal processing mathw
+# round 23
+let's try to add a slide to show velocimetry with MRI. First we'll show a signle atom on a grid, centered halfway to the right from center. We'll have a pre-programmed sequence to apply and RF pulse with a gradient in X. after a 3 seconds, the gradient will reverse for 3 seconds. The single atom should undergo phase shift during both gradients but cancel out to zero.
+
+then we'll do the same thing with a moving atom (start at center and move slowly to the same position as first atom). In this case the atom will undergo different phase shifts on the first and second gradients, because it will be exposed to different fields
+# round 24
+can we make the gradient sequence tracker on slide 10 a slider that I can interact with to control the position in the playback?

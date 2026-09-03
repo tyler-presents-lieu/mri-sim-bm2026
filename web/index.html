@@ -4,29 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MRI: One Spin</title>
-    <link rel="stylesheet" href="/static/theme.css?v=20260902-3" />
+    <link rel="stylesheet" href="/static/theme.css?v=20260903-4" />
   </head>
   <body>
     <main class="app-shell">
       <header class="topbar">
-        <p class="eyebrow">MRI, made visible</p>
         <label class="scene-picker" for="scene-select">
           <span>Slide</span>
           <select id="scene-select" aria-label="Jump to slide">
-            <option value="0">01 / 07 - Alignment</option>
-            <option value="1">02 / 07 - Resonance</option>
-            <option value="2">03 / 07 - Position selection</option>
-            <option value="3">04 / 07 - Uniform grid</option>
-            <option value="4">05 / 07 - X-gradient dephasing</option>
-            <option value="5">06 / 07 - XY gradients</option>
-            <option value="6">07 / 07 - Signal bridge</option>
+            <option value="0">01 / 10 - Introduction</option>
+            <option value="1">02 / 10 - Alignment</option>
+            <option value="2">03 / 10 - Resonance</option>
+            <option value="3">04 / 10 - Position selection</option>
+            <option value="4">05 / 10 - Uniform grid</option>
+            <option value="5">06 / 10 - X-gradient dephasing</option>
+            <option value="6">07 / 10 - XY gradients</option>
+            <option value="7">08 / 10 - Signal bridge</option>
+            <option value="8">09 / 10 - Phase patterns</option>
+            <option value="9">10 / 10 - MRI velocimetry</option>
           </select>
         </label>
-        <h1 id="scene-title">One hydrogen spin</h1>
-        <p class="subtitle" id="scene-subtitle">A magnetic field gives the spin a preferred direction.</p>
+        <div class="scene-copy">
+          <h1 id="scene-title">One hydrogen spin</h1>
+          <p class="subtitle" id="scene-subtitle">A magnetic field gives the spin a preferred direction.</p>
+        </div>
       </header>
 
-      <section class="simulation" aria-label="Animated spin visualization">
+      <section id="intro-slide" class="intro-slide" aria-label="Introduction">
+        <img src="https://www.medicalgraphics.de/wp-content/uploads/2023/01/mri-scanner.jpg" alt="MRI scanner" />
+        <div class="intro-copy">
+          <ul>
+            <li>Originally chemcial composition measurement (NMR), turned into imaging</li>
+            <li>See inside the body without ionizing radiation</li>
+            <li>Many imaging modalities from one piece of hardware, via software</li>
+            <li>Natural conneciton to signal processing math</li>
+          </ul>
+          <p class="image-credit">Image: www.MedicalGraphics.de, “Free illustration MRI scanner,” CC BY-ND 4.0, <a href="https://www.medicalgraphics.de/en/product/mri-scanner/">source</a>.</p>
+        </div>
+      </section>
+
+      <section id="simulation-section" class="simulation" aria-label="Animated spin visualization">
         <canvas id="spin-canvas" aria-label="An animated hydrogen spin"></canvas>
         <div class="status-line">
           <span class="status-dot" aria-hidden="true"></span>
@@ -36,13 +53,24 @@
         </div>
       </section>
 
-      <section class="control-strip" aria-label="Simulation controls">
+      <section id="control-strip" class="control-strip" aria-label="Simulation controls">
         <button id="previous-scene" class="nav-button" type="button" aria-label="Previous slide" title="Previous slide">&lt;</button>
         <button id="next-scene" class="nav-button" type="button" aria-label="Next slide" title="Next slide">&gt;</button>
         <button id="pause-button" class="icon-button" type="button" aria-label="Pause animation" title="Pause animation">II</button>
         <button id="reset-button" class="nav-button" type="button" aria-label="Reset slide" title="Reset slide">&#8635;</button>
         <button id="field-button" class="field-button" type="button">APPLY FIELD</button>
         <button id="pulse-button" class="field-button is-hidden" type="button">APPLY RF PULSE</button>
+        <span id="velocity-control-group" class="pattern-controls is-hidden" aria-label="Velocity mode">
+          <button class="pattern-button is-selected" type="button" data-velocity-mode="stationary">STATIONARY</button>
+          <button class="pattern-button" type="button" data-velocity-mode="moving">MOVING</button>
+        </span>
+        <label id="velocity-time-group" class="is-hidden" for="velocity-time-control">Sequence time <output id="velocity-time-value">0.0 s</output></label>
+        <input id="velocity-time-control" class="is-hidden" type="range" min="0" max="6" value="0" step="0.01" />
+        <span id="pattern-control-group" class="pattern-controls is-hidden" aria-label="Phase pattern">
+          <button class="pattern-button is-selected" type="button" data-pattern="0">VERTICAL BANDS</button>
+          <button class="pattern-button" type="button" data-pattern="1">DIAGONAL BANDS</button>
+          <button class="pattern-button" type="button" data-pattern="2">DIAGONAL GAPS</button>
+        </span>
         <label id="rf-control-group" class="is-hidden" for="rf-control">RF frequency <output id="rf-value">0.10 Hz</output></label>
         <input id="rf-control" class="is-hidden" type="range" min="0.04" max="0.16" value="0.10" step="0.01" />
         <label id="grid-control-group" class="is-hidden" for="grid-control">Grid <output id="grid-value">10 x 10</output></label>
@@ -58,6 +86,6 @@
         <input id="speed-control" type="range" min="0.25" max="4" value="1" step="0.25" />
       </section>
     </main>
-    <script src="/static/main.js?v=20260902-5"></script>
+    <script src="/static/main.js?v=20260903-6"></script>
   </body>
 </html>
