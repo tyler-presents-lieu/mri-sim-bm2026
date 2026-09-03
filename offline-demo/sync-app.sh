@@ -26,5 +26,8 @@ rm -rf "${APP_DIR}"
 mkdir -p "${APP_DIR}"
 cp "${WEB_DIR}/index.html" "${APP_DIR}/index.html"
 cp -r "${WEB_DIR}/static" "${APP_DIR}/static"
+if [ -d "${SCRIPT_DIR}/assets" ]; then
+  cp -r "${SCRIPT_DIR}/assets" "${APP_DIR}/assets"
+fi
 
 echo "Synced ${WEB_DIR} -> ${APP_DIR}"
